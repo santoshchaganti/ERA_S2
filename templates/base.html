@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psoriasis Food Scout</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        
+        h3 {
+            color: #34495e;
+            margin: 20px 0 10px 0;
+        }
+        
+        p {
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        /* Upload area styling */
+        .upload-area {
+            border: 3px dashed #3498db;
+            border-radius: 15px;
+            padding: 50px 20px;
+            text-align: center;
+            background: #f8fafc;
+            margin: 30px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #e8f4fd;
+            border-color: #2980b9;
+        }
+        
+        input[type="file"] {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background: linear-gradient(135deg, #2980b9, #21618c);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        /* Flash messages */
+        .flash-error {
+            background: #e74c3c;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        /* Results page styling */
+        .result-container {
+            margin-top: 30px;
+        }
+        
+        .uploaded-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .analysis {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #3498db;
+            line-height: 1.7;
+            font-size: 15px;
+            margin: 20px 0;
+        }
+        
+        .analysis strong {
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        
+        .analysis em {
+            color: #34495e;
+            font-style: italic;
+        }
+        
+        .back-button {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+            margin-top: 30px;
+        }
+        
+        .back-button:hover {
+            background: linear-gradient(135deg, #7f8c8d, #6c7b7d);
+        }
+        
+        /* Info box */
+        .info-box {
+            background: linear-gradient(135deg, #e8f4f8, #d6eaf8);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 40px;
+            border-left: 5px solid #3498db;
+        }
+        
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .info-box li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .info-box li:before {
+            content: "•";
+            color: #3498db;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
