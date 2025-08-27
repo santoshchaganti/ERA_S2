@@ -9,4 +9,9 @@ wheels/
 # Virtual environments
 .venv
 .env
-s2_module.pem
+*.pem
+*.tfvars
+.terraform
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
