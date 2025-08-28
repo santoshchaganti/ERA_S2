@@ -43,6 +43,14 @@ resource "aws_instance" "s2_module" {
   tags = {
     Name = "s2_module"
   }
+  user_data = <<-EOF
+    #!/bin/bash
+    apt-get update && apt-get upgrade -y
+    snap install astral-uv --classic
+    git clone https://github.com/santoshchaganti/ERA_S2.git
+    cd ERA_S2
+    uv sync
+  EOF
 }
 
 resource "aws_security_group" "s2_module_sg" {
