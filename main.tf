@@ -58,6 +58,7 @@ resource "aws_instance" "s2_module" {
     ENV_EOF
     chown ubuntu:ubuntu .env
     chmod 600 .env
+    sudo -u ubuntu uv run app.py
   EOF
 }
 
