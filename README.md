@@ -1,4 +1,4 @@
-# 🔍 Psoriasis Food Scout
+# Psoriasis Food Scout
 
 ## Project Motivation
 
