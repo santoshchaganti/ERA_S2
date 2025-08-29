@@ -58,7 +58,27 @@ resource "aws_instance" "s2_module" {
     ENV_EOF
     chown ubuntu:ubuntu .env
     chmod 600 .env
-    sudo -u ubuntu uv run main.py
+    cat << 'SERVICE_EOF' > /etc/systemd/system/psoriasis-app.service
+    [Unit]
+    Description=Psoriasis Food Scout Flask Application
+    After=network.target
+
+    [Service]
+    Type=simple
+    User=ubuntu
+    WorkingDirectory=/home/ubuntu/projects/ERA_S2
+    ExecStart=/snap/bin/uv run main.py
+    Restart=always
+    RestartSec=10
+    Environment=PATH=/snap/bin:/usr/local/bin:/usr/bin:/bin
+
+    [Install]
+    WantedBy=multi-user.target
+    SERVICE_EOF
+
+    systemctl daemon-reload
+    systemctl enable psoriasis-app.service
+    systemctl start psoriasis-app.service
   EOF
 }
 
