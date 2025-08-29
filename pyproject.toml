@@ -1,7 +1,7 @@
 [project]
 name = "psoriasis-food-scout"
 version = "0.1.0"
-description = "Add your description here"
+description = "Food dietary suggestions for psoriasis or scalp psoriasis"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -9,7 +9,27 @@ dependencies = [
     "google-genai>=1.31.0",
     "flask>=3.0.0",
     "pillow>=10.0.0",
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
     "numpy>=1.24.0",
+    "tokenizers>=0.15.0",
+    "blobfile>=3.0.0",
+    "huggingface_hub>=0.24.7",
+    "ipywidgets>=8.1.2",
+    "safetensors>=0.4.4",
+    "sentencepiece>=0.1.99",
+    "hf-xet"
 ]
 
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+  { index = "pytorch-cu118", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
 
+[[tool.uv.index]]
+name = "pytorch-cu118"
+url = "https://download.pytorch.org/whl/cu118"
+explicit = true

@@ -7,31 +7,20 @@ import io
 import base64
 import re
 
-
-# Load environment variables
 load_dotenv(".env")
 
-# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your-secret-key-change-this'  # Change this to a random secret key
+# app.secret_key = 'your-secret-key-change-this'
 
 def format_analysis_text(text):
     """Convert markdown-style formatting to HTML"""
-    # Convert **bold** to <strong>bold</strong>
     text = re.sub(r'\*\*(.*?)\*\*', r'<strong>\1</strong>', text)
-    
-    # Convert *italic* to <em>italic</em> (but not the bullet points)
     text = re.sub(r'(?<!\*)\*([^*]+?)\*(?!\*)', r'<em>\1</em>', text)
-    
-    # Convert bullet points * to proper HTML list items
     text = re.sub(r'^\*\s+', '• ', text, flags=re.MULTILINE)
-    
-    # Convert line breaks to HTML breaks for better formatting
     text = text.replace('\n', '<br>')
     
     return text
 
-# Initialize Gemini client
 client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 @app.route('/')
@@ -53,13 +42,10 @@ def analyze_food():
     
     if file and allowed_file(file.filename):
         try:
-            # Read and process the image
             image_data = file.read()
             
-            # Convert image to PIL Image for Gemini
             pil_image = Image.open(io.BytesIO(image_data))
             
-            # Create a detailed prompt for psoriasis dietary analysis
             prompt = """
             Analyze this food image for someone with psoriasis. Please provide:
             
@@ -83,7 +69,6 @@ def analyze_food():
             Please be specific and helpful for someone managing psoriasis through diet.
             """
             
-            # Get response from Gemini
             response = client.models.generate_content(
                 model="gemini-2.0-flash-exp",
                 contents=[prompt, pil_image]
@@ -103,7 +88,6 @@ def analyze_food():
             
             # print(f"Analysis saved to: {txt_filename}")
             
-            # Convert image to base64 for display
             image_base64 = base64.b64encode(image_data).decode('utf-8')
             
             return render_template('result.html', 
@@ -112,7 +96,7 @@ def analyze_food():
                                  filename=file.filename)
             
         except Exception as e:
-            print(f"Error details: {str(e)}")  # This will show in your terminal
+            print(f"Error details: {str(e)}")
             flash(f'Error analyzing image: {str(e)}')
             return redirect(url_for('index'))
     else:
