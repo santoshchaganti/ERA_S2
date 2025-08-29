@@ -10,7 +10,7 @@ import re
 load_dotenv(".env")
 
 app = Flask(__name__)
-# app.secret_key = 'your-secret-key-change-this'
+app.secret_key = 'your-secret-key-change-this'
 
 def format_analysis_text(text):
     """Convert markdown-style formatting to HTML"""
