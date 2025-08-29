@@ -8,6 +8,7 @@ terraform {
   required_version = ">= 1.2"
 }
 
+variable "gemini_api_key" {}
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
 variable "aws_region" {}
@@ -47,9 +48,16 @@ resource "aws_instance" "s2_module" {
     #!/bin/bash
     apt-get update && apt-get upgrade -y
     snap install astral-uv --classic
+    mkdir -p /home/ubuntu/projects && cd /home/ubuntu/projects
     git clone https://github.com/santoshchaganti/ERA_S2.git
-    cd ERA_S2
-    uv sync
+    chown -R ubuntu:ubuntu /home/ubuntu/projects
+    cd /home/ubuntu/projects/ERA_S2
+    sudo -u ubuntu uv sync
+    cat << 'ENV_EOF' > .env
+    GEMINI_API_KEY=${var.gemini_api_key}
+    ENV_EOF
+    chown ubuntu:ubuntu .env
+    chmod 600 .env
   EOF
 }
 
@@ -87,6 +95,15 @@ resource "aws_vpc_security_group_ingress_rule" "s2_module_sg_https" {
   from_port   = 443
   ip_protocol = "tcp"
   to_port     = 443
+}
+
+resource "aws_vpc_security_group_ingress_rule" "s2_module_sg_5000" {
+  security_group_id = aws_security_group.s2_module_sg.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = 5000
+  ip_protocol = "tcp"
+  to_port     = 5000
 }
 
 resource "aws_vpc_security_group_egress_rule" "s2_module_all_outbound" {
