@@ -57,7 +57,8 @@ resource "aws_instance" "s2_module" {
     GEMINI_API_KEY=${var.gemini_api_key}
     ENV_EOF
     chown ubuntu:ubuntu .env
-    chmod 600 .env
+    chmod 664 .env
+    sudo -u ubuntu uv run main.py
   EOF
 }
 
