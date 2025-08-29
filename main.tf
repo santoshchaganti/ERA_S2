@@ -54,10 +54,10 @@ resource "aws_instance" "s2_module" {
     cd /home/ubuntu/projects/ERA_S2
     sudo -u ubuntu uv sync
     cat << 'ENV_EOF' > .env
-    GEMINI_API_KEY=${var.gemini_api_key}
+    GEMINI_API_KEY = ${var.gemini_api_key}
     ENV_EOF
     chown ubuntu:ubuntu .env
-    chmod 664 .env
+    chmod 600 .env
     sudo -u ubuntu uv run main.py
   EOF
 }
